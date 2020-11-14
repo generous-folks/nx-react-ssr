@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "projects": {
+    "react-ssr": {
+      "root": "packages/react-ssr",
+      "sourceRoot": "packages/react-ssr/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/react-ssr/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/react-ssr/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/react-ssr",
+            "tsConfig": "packages/react-ssr/tsconfig.lib.json",
+            "packageJson": "packages/react-ssr/package.json",
+            "main": "packages/react-ssr/src/index.ts",
+            "assets": [
+              "packages/react-ssr/*.md",
+              {
+                "input": "./packages/react-ssr/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/react-ssr",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/react-ssr",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "react-ssr-e2e": {
+      "projectType": "application",
+      "root": "e2e/react-ssr-e2e",
+      "sourceRoot": "e2e/react-ssr-e2e/src",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "react-ssr:build",
+            "npmPackageName": "@nx-folks/react-ssr",
+            "pluginOutputPath": "dist/packages/react-ssr",
+            "jestConfig": "e2e/react-ssr-e2e/jest.config.js"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
+}

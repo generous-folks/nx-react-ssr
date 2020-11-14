@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "name": "react-ssr",
+  "version": "0.0.1",
+  "schematics": {
+    "react-ssr": {
+      "factory": "./src/schematics/react-ssr/schematic",
+      "schema": "./src/schematics/react-ssr/schema.json",
+      "description": "react-ssr schematic"
+    }
+  }
+}
